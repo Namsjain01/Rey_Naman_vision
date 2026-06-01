@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rey Mindu  - A Mindful Village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #1D6E56;
+  --green-dark: #0F3D2E;
+  --gold:       #C8922A;
+  --vermilion:  #9E2B25;
+  --ink:        #211C18;
+  --paper:      #F2EBDD;
+  --serif:      'Spectral', Georgia, serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Stage & chapters ── */
+#stage { position: fixed; inset: 0; overflow: hidden; }
+
+.chapter {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  color: var(--paper);
+  background: var(--ink);
+}
+.chapter.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.ch-light { background: var(--paper); color: var(--ink); }
+.ch-deep  { background: var(--green-dark); }
+.ch-mid   { background: #1a1410; }
+.ch-rouge { background: #130a09; }
+
+/* ── Side nav ── */
+#nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: flex-end;
+}
+.ni {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+}
+.ni-label {
+  font-family: system-ui, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.ni:hover .ni-label, .ni.on .ni-label { opacity: 1; }
+.ni.on .ni-label { color: var(--gold); }
+.nd {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.ni.on .nd { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 7px rgba(200,146,42,0.6); }
+
+/* ── Mobile bottom nav ── */
+#mnav {
+  display: none;
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  gap: 0.55rem;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  padding: 0.45rem 0.7rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+#mnav .nd { width: 6px; height: 6px; cursor: pointer; }
+
+/* ── Type ── */
+.eyebrow {
+  font-family: system-ui, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 1rem;
+}
+.display {
+  font-size: clamp(1.9rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 18ch;
+}
+.title {
+  font-size: clamp(1.4rem, 3vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.body {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.82;
+  max-width: 62ch;
+}
+.body p + p { margin-top: 1.2rem; }
+em { font-style: italic; }
+
+.pq {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 48ch;
+  border-left: 2px solid var(--gold);
+  padding-left: 1.4rem;
+  margin: 2.5rem 0;
+  color: var(--gold);
+}
+.ch-light .pq { color: var(--green-dark); border-left-color: var(--green); }
+.ch-deep  .pq { color: #d4a84b; border-left-color: #d4a84b; }
+
+.rule {
+  border: none;
+  border-top: 1px solid rgba(200,146,42,0.22);
+  margin: 3rem 0;
+}
+.ch-light .rule { border-top-color: rgba(29,110,86,0.2); }
+
+/* ── Layout ── */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+.sp   { padding: 5rem 0; }
+.sp-s { padding: 3rem 0; }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4.5rem;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 25%, rgba(12,8,5,0.5) 100%),
+    linear-gradient(to bottom, rgba(15,61,46,0.1) 0%, rgba(10,8,6,0.78) 100%);
+}
+.hero-txt {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── Image grid ── */
+.igrid {
+  display: grid;
+  gap: 0.75rem;
+}
+.igrid-3 { grid-template-columns: repeat(3, 1fr); }
+.igrid-2 { grid-template-columns: repeat(2, 1fr); }
+.ifrm {
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+.ifrm img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.ifrm:hover img { transform: scale(1.04); }
+
+/* ── Map ── */
+.map-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: zoom-in;
+}
+.map-cap {
+  font-family: system-ui, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+/* ── Term cards ── */
+.tcards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2.5rem 0;
+}
+.tc {
+  border: 1px solid rgba(200,146,42,0.25);
+  padding: 1.75rem;
+  position: relative;
+}
+.tc::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: var(--gold);
+}
+.tc-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 0.2rem;
+}
+.tc-sub {
+  font-family: system-ui, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 0.9rem;
+}
+.tc-body { font-size: 0.92rem; line-height: 1.72; }
+
+/* ── Two roots ── */
+.roots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(200,146,42,0.2);
+  margin: 2.5rem 0;
+}
+.root {
+  padding: 2.25rem;
+}
+.root:first-child { border-right: 2px solid var(--gold); }
+.root-label {
+  font-family: system-ui, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.65rem;
+}
+.root-title { font-size: 1.15rem; font-weight: 400; margin-bottom: 0.9rem; line-height: 1.4; }
+
+/* ── Depth pairs ── */
+.dpair { display: flex; flex-direction: column; gap: 1.25rem; }
+.drow  { display: grid; grid-template-columns: 72px 1fr; gap: 1rem; align-items: start; }
+.dlabel {
+  font-family: system-ui, sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-top: 0.3rem;
+}
+.ch-light .dlabel { color: var(--green); }
+
+/* ── Space section ── */
+.ssec {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  padding: 3rem 0;
+}
+.ssec.flip { direction: rtl; }
+.ssec.flip > * { direction: ltr; }
+.stag {
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--vermilion);
+  color: #fff;
+  padding: 0.2em 0.55em;
+  margin-bottom: 0.65rem;
+}
+.shead { font-size: 1.5rem; font-weight: 400; margin-bottom: 1.25rem; line-height: 1.25; }
+
+/* ── Before/After slider ── */
+.ba-wrap {
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+  cursor: col-resize;
+  background: #000;
+}
+.ba-wrap img { width: 100%; display: block; object-fit: cover; }
+.ba-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0 0 0 50%);
+}
+.ba-after img { width: 100%; height: 100%; object-fit: cover; }
+.ba-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.ba-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  cursor: col-resize;
+}
+.ba-cap {
+  position: absolute;
+  bottom: 0.6rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  padding: 0.2em 0.55em;
+}
+.ba-cap.l { left: 0.6rem; }
+.ba-cap.r { right: 0.6rem; }
+
+/* ── Video ── */
+.vid-wrap { position: relative; overflow: hidden; background: #000; }
+.vid-wrap video { width: 100%; display: block; object-fit: cover; }
+
+/* ── Placeholder ── */
+.slot {
+  border: 1px dashed rgba(200,146,42,0.35);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 160px;
+  text-align: center;
+}
+.slot-tag {
+  font-family: system-ui, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.65;
+}
+.slot-desc { font-style: italic; font-size: 0.88rem; opacity: 0.45; }
+.ch-light .slot { border-color: rgba(29,110,86,0.35); }
+.ch-light .slot-tag { color: var(--green); }
+
+/* ── Mode cards (Ch8) ── */
+.mcards {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.mc {
+  border: 1px solid rgba(200,146,42,0.2);
+  padding: 1.5rem 1.25rem;
+}
+.mc-name { font-size: 0.95rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem; }
+
+/* ── Closing two-col ── */
+.closecols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+.cchead {
+  font-family: system-ui, sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.cclist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.cclist li { font-size: 0.95rem; line-height: 1.7; }
+
+/* ── Next button ── */
+.nxt {
+  background: none;
+  border: none;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.65;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+.nxt:hover { opacity: 1; }
+.ch-light .nxt { color: var(--green); }
+.nxt-row { text-align: right; padding: 1.5rem 0 5rem; }
+
+/* ── Footer ── */
+footer {
+  padding: 3.5rem 0 2rem;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  opacity: 0.35;
+}
+
+/* ── Scroll reveal ── */
+.rv {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.rv.on { opacity: 1; transform: none; }
+
+/* ── Responsive ── */
+@media (max-width: 780px) {
+  #nav { display: none; }
+  #mnav { display: flex; }
+  .igrid-3 { grid-template-columns: 1fr 1fr; }
+  .tcards { grid-template-columns: 1fr; }
+  .roots { grid-template-columns: 1fr; }
+  .root:first-child { border-right: none; border-bottom: 2px solid var(--gold); }
+  .ssec, .ssec.flip { grid-template-columns: 1fr; direction: ltr; gap: 1.75rem; }
+  .closecols { grid-template-columns: 1fr; gap: 2rem; }
+  .mcards { grid-template-columns: 1fr; }
+  .drow { grid-template-columns: 58px 1fr; }
+  .sp { padding: 3.5rem 0; }
+  .hero { padding-bottom: 5rem; }
+}
+@media (max-width: 480px) {
+  .wrap { padding: 0 1.25rem; }
+  .igrid-3 { grid-template-columns: 1fr; }
+  .igrid-2 { grid-template-columns: 1fr; }
+}
+
+/* ── Grain / noise overlay ── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 450;
+  opacity: 0.042;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── Ghost chapter numerals ── */
+.ghost-num {
+  position: absolute;
+  top: 1.5rem;
+  right: 2.5rem;
+  font-size: clamp(5rem, 16vw, 13rem);
+  font-weight: 600;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200,146,42,0.08);
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--serif);
+  letter-spacing: -0.04em;
+  z-index: 0;
+}
+.ch-deep  .ghost-num { -webkit-text-stroke-color: rgba(200,146,42,0.1); }
+.ch-light .ghost-num { -webkit-text-stroke-color: rgba(29,110,86,0.07); }
+.ch-rouge .ghost-num { -webkit-text-stroke-color: rgba(158,43,37,0.12); }
+
+/* ── Ornamental dividers ── */
+.orn-rule {
+  display: flex;
+  align-items: center;
+  margin: 3rem 0;
+}
+.orn-rule::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,146,42,0.32));
+}
+.orn-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(200,146,42,0.32));
+}
+.orn-gem {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  opacity: 0.5;
+  margin: 0 0.8rem;
+}
+.ch-light .orn-rule::before { background: linear-gradient(to right, transparent, rgba(29,110,86,0.22)); }
+.ch-light .orn-rule::after  { background: linear-gradient(to left,  transparent, rgba(29,110,86,0.22)); }
+.ch-light .orn-gem { background: var(--green); }
+
+/* ── Pull quote opening mark ── */
+.pq::before {
+  content: '\201C';
+  display: block;
+  font-size: 3.5rem;
+  line-height: 0.55;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--gold);
+  opacity: 0.4;
+  margin-bottom: 0.4rem;
+}
+.ch-light .pq::before { color: var(--green); }
+.ch-deep  .pq::before { color: #d4a84b; }
+
+/* ── Warm ambient glow on dark chapters ── */
+#c0, #c2, #c3, #c4, #c7 {
+  background-image: radial-gradient(ellipse at 65% 5%, rgba(52,28,10,0.4) 0%, transparent 60%);
+}
+#c1 {
+  background-image: radial-gradient(ellipse at 40% 5%, rgba(20,58,38,0.5) 0%, transparent 55%);
+}
+#c5 {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(80,18,12,0.4) 0%, transparent 55%);
+}
+
+/* ── Thin scrollbar ── */
+.chapter::-webkit-scrollbar { width: 2px; }
+.chapter::-webkit-scrollbar-track { background: transparent; }
+.chapter::-webkit-scrollbar-thumb { background: rgba(200,146,42,0.3); }
+.ch-light::-webkit-scrollbar-thumb { background: rgba(29,110,86,0.25); }
+
+/* ── Nav connecting line ── */
+#nav { position: fixed; }
+#nav::before {
+  content: '';
+  position: absolute;
+  top: 3px; bottom: 3px;
+  right: 3px;
+  width: 1px;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Side nav -->
+<nav id="nav" aria-label="Chapters">
+  <div class="ni on" data-to="0"><span class="ni-label">The Place</span><span class="nd"></span></div>
+  <div class="ni"     data-to="1"><span class="ni-label">Common Thread</span><span class="nd"></span></div>
+  <div class="ni"     data-to="2"><span class="ni-label">Two Roots</span><span class="nd"></span></div>
+  <div class="ni"     data-to="3"><span class="ni-label">Arc of Expression</span><span class="nd"></span></div>
+  <div class="ni"     data-to="4"><span class="ni-label">Sacred &amp; Still</span><span class="nd"></span></div>
+  <div class="ni"     data-to="5"><span class="ni-label">The Rooster</span><span class="nd"></span></div>
+  <div class="ni"     data-to="6"><span class="ni-label">Living Curriculum</span><span class="nd"></span></div>
+  <div class="ni"     data-to="7"><span class="ni-label">Closing</span><span class="nd"></span></div>
+</nav>
+
+<!-- Mobile nav -->
+<div id="mnav" role="navigation" aria-label="Chapters"></div>
+
+<main id="stage">
+
+<!-- ══ Chapter 1  - The Place Before the Vision ══ -->
+<section class="chapter active" id="c0">
+  <!-- Hero -->
+  <div class="hero">
+    <img class="hero-bg" src="assets/monastery-far.png" alt="The monastery at Rey Mindu rising through mountain mist" loading="eager" />
+    <div class="hero-scrim"></div>
+    <div class="hero-txt">
+      <p class="eyebrow" style="opacity:.5;">Rey Mindu · East Sikkim</p>
+      <h1 class="display">Rey Mindu is already a mindful village. We are not building one.</h1>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="wrap sp">
+    <div class="body rv">
+      <p>A Lepcha village in East Sikkim, between Rumtek and Lingdum monasteries. A <em>bongthing</em> in his seventies still chants here. A monastery, rebuilt three times over a century, stands where an old clay stupa once was. 108 white flags multiply mantra in the wind for the dead. A buckwheat roll is served with millet beer to a guest who has walked up from the ridge.</p>
+      <p>These are not raw materials for a project. They are the project, complete in themselves.</p>
+    </div>
+
+    <blockquote class="pq rv">
+      What the village needs is not a vision imposed from outside  - but a protective architecture that lets what is already here continue, while finding the right channels for it to be expressed.
+    </blockquote>
+  </div>
+
+  <!-- Three monastery images -->
+  <div class="wrap rv">
+    <div class="igrid igrid-3" style="height:360px;">
+      <div class="ifrm"><img src="assets/monastery-near.png"   alt="The monastery from nearby"   loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/monastery-inside.png" alt="Inside the monastery"         loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/monk-bell.png"        alt="A monk sounding the horn"     loading="lazy" /></div>
+    </div>
+  </div>
+
+  <!-- Village map -->
+  <div class="wrap rv" style="padding-top:4rem; padding-bottom:2rem;">
+    <hr class="rule" />
+    <p class="eyebrow" style="text-align:center; margin-bottom:1.5rem;">The Village</p>
+    <div class="map-wrap">
+      <img src="assets/village-map.jpg" alt="Map of Rey Village  - Village Core and Riverside Area" loading="lazy" id="vmap" />
+    </div>
+    <p class="map-cap">The village holds two zones  - the Village Core, and the Riverside Area about 1.3&thinsp;km away.</p>
+  </div>
+
+  <div class="wrap nxt-row"><button class="nxt" data-to="1">Continue  - The Common Thread →</button></div>
+</section>
+
+<!-- ══ Chapter 2  - The Common Thread ══ -->
+<section class="chapter ch-deep" id="c1">
+  <div class="wrap sp">
+    <p class="eyebrow rv">Chapter II</p>
+    <h2 class="title rv" style="max-width:24ch; margin-bottom:2rem;">The Common Thread</h2>
+
+    <div class="body rv">
+      <p>Combine seven pillars into one offering, with a single thread running through all of it: mental well-being, Vajrayana Buddhism, Lepcha culture, art, music and sound, local sensitivities, and local experiences. Not heavy. Not clinical. A place that restores you.</p>
+      <p>The thread is mental well-being. But Rey Mindu already owns the words for it.</p>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="tcards">
+      <div class="tc rv">
+        <div class="tc-name">Thongdrol</div>
+        <div class="tc-sub">Liberation through seeing</div>
+        <p class="tc-body">The one who looks and the thing looked at are not two.</p>
+      </div>
+      <div class="tc rv" style="transition-delay:.12s">
+        <div class="tc-name">Darshan</div>
+        <div class="tc-sub">Reciprocal seeing</div>
+        <p class="tc-body">The viewer is also seen; blessing passes through the exchange.</p>
+      </div>
+      <div class="tc rv" style="transition-delay:.24s">
+        <div class="tc-name">Pang</div>
+        <div class="tc-sub">To witness</div>
+        <p class="tc-body">The Lepcha word in <em>Pang Lhabsol</em>  - to witness the sacred, not merely observe it.</p>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="rv" style="font-style:italic; font-size:clamp(1rem,2vw,1.15rem); line-height:1.75; max-width:52ch;">
+      <p>Spectatorship is one-way, and it consumes. <em>Darshan</em>, <em>thongdrol</em>, and <em>pang</em> are two-way, and they transmit. A guest who arrives with these is a witness  - not a tourist. That is the whole difference.</p>
+    </div>
+
+    <div class="nxt-row"><button class="nxt" data-to="2">Continue  - How Every Space Carries Two Roots →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 3  - How Every Space Carries Two Roots ══ -->
+<section class="chapter" id="c2">
+  <div class="wrap sp">
+    <p class="eyebrow rv">Chapter III</p>
+    <h2 class="title rv" style="max-width:28ch; margin-bottom:2.5rem;">How Every Space Carries Two Roots</h2>
+
+    <p class="rv" style="font-style:italic; font-size:clamp(1.05rem,2.2vw,1.3rem); max-width:36ch; line-height:1.6; margin-bottom:2.5rem;">Every space here means two things at once.</p>
+
+    <div class="roots rv">
+      <div class="root">
+        <div class="root-label">The surface root</div>
+        <div class="root-title">What anyone feels instantly, with no explanation.</div>
+        <p class="body" style="font-size:.93rem; opacity:.8;">The breath that lengthened. The hands that remembered. The child who became a child again.</p>
+      </div>
+      <div class="root">
+        <div class="root-label">The deep root</div>
+        <div class="root-title">What the village's living traditions already say about the same thing.</div>
+        <p class="body" style="font-size:.93rem; opacity:.8;">The cosmology, the ceremony, the knowledge carried across generations  - arranged so the village teaches it through how it is lived.</p>
+      </div>
+    </div>
+
+    <div class="body rv">
+      <p>The two hold together. And the deep root is never lectured to a guest  - it is <em>arranged</em>, so the village teaches it through how it is lived. The orchard's one rule teaches the Lepcha relationship with land without a word. Sitting at the cremation ground teaches impermanence without a dharma talk.</p>
+    </div>
+
+    <blockquote class="pq rv">
+      Any wellness resort can build a breaking room. Only Rey Mindu can build one where the reason <em>why</em> you break things already lives in the monastery 200 metres away.
+    </blockquote>
+
+    <div class="nxt-row"><button class="nxt" data-to="3">Continue  - The Arc of Expression →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 4  - The Arc of Expression ══ -->
+<section class="chapter ch-mid" id="c3">
+  <div class="wrap sp">
+    <p class="eyebrow rv">Chapter IV</p>
+    <h2 class="title rv" style="margin-bottom:2rem;">The Arc of Expression</h2>
+    <div class="body rv" style="max-width:58ch;">
+      <p>The active spaces form an arc  - from the most physical release to the most communal gathering. A guest can move through all three in a day. They stand in counterpoint to the still, sacred spaces. Holding both poles at once is the non-dual architecture, made into a village.</p>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin:0 2rem;" />
+
+  <!-- 4a: Unbecoming Space -->
+  <div class="wrap">
+    <div class="ssec">
+      <div class="rv">
+        <span class="stag">4a</span>
+        <h3 class="shead">The Unbecoming Space</h3>
+        <div class="dpair">
+          <div class="drow">
+            <span class="dlabel">Surface</span>
+            <p class="body" style="font-size:.93rem;">You are carrying something heavy  - anger, grief, jealousy, shame. These are real. This space gives them a form to meet. <em>Name what you are carrying. Bring it here. Leave it.</em></p>
+          </div>
+          <div class="drow">
+            <span class="dlabel">Deep</span>
+            <p class="body" style="font-size:.93rem;">The five Vajrayana poisons  - ignorance, attachment, aversion, pride, jealousy  - are not foreign invaders to be suppressed. They are the raw material of awakening: the poison is also the medicine, recognised and transformed. The <em>bongthing</em>'s work with <em>Mung</em> spirits follows the same logic  - the difficult is not destroyed, but appeased and transformed.</p>
+          </div>
+        </div>
+        <p style="margin-top:1.5rem; font-style:italic; color:var(--gold); font-size:1rem;">Anger and peace are not two.</p>
+      </div>
+      <div class="vid-wrap rv" style="height:400px;">
+        <video autoplay muted loop playsinline preload="auto" style="height:400px; width:100%; object-fit:cover;">
+          <source src="assets/unbecoming.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin:0 2rem;" />
+
+  <!-- 4b: Making Space -->
+  <div class="wrap">
+    <div class="ssec flip">
+      <div class="rv">
+        <span class="stag">4b</span>
+        <h3 class="shead">The Making Space</h3>
+        <div class="dpair">
+          <div class="drow">
+            <span class="dlabel">Surface</span>
+            <p class="body" style="font-size:.93rem;">Work with your hands. Throw paint, shape clay, weave. The thinking mind quiets. You become the making. A space to become a child again.</p>
+          </div>
+          <div class="drow">
+            <span class="dlabel">Deep</span>
+            <p class="body" style="font-size:.93rem;">Dōgen's cook found awakening in the kitchen, not the meditation hall. Marpa built his tower stone by stone  - the labour was the transmission. The Lepcha weaver chants mantras for the named owner while weaving the <em>Sumok-thyaktuk</em> hat. Making and practice are not two.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="igrid igrid-2" style="height:260px; gap:.5rem;">
+          <div class="ifrm" style="overflow:hidden;">
+            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="assets/paint-throw.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ifrm" style="overflow:hidden;">
+            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="assets/pottery.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="ifrm" style="height:180px; margin-top:.5rem;">
+          <img src="assets/wds-room.png" alt="The Making Space interior" loading="lazy" />
+        </div>
+        <div class="rv" style="margin-top:.5rem; overflow:hidden;">
+          <img src="assets/lepcha-weaving.png" alt="Lepcha weaving on a traditional loom" loading="lazy" style="width:100%; height:auto; display:block;" />
+        </div>
+        <div class="rv" style="margin-top:.5rem; overflow:hidden;">
+          <img src="assets/lepcha-instruments.png" alt="Lepcha traditional instruments" loading="lazy" style="width:100%; height:auto; display:block;" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin:0 2rem;" />
+
+  <!-- 4c: Gathering Hall -->
+  <div class="wrap sp-s">
+    <span class="stag rv">4c</span>
+    <h3 class="shead rv" style="margin-top:.4rem;">The Gathering Hall</h3>
+    <p class="rv" style="font-style:italic; opacity:.6; margin-bottom:2rem; font-size:.95rem;">A 12-room building  - from what it is now, to what it can become.</p>
+
+    <!-- Before/After slider -->
+    <div class="ba-wrap rv" id="ba" style="max-height:480px;">
+      <img src="assets/hall-now.png" alt="The gathering hall now" loading="lazy" style="max-height:480px; width:100%; object-fit:cover;" />
+      <div class="ba-after" id="ba-after">
+        <img src="assets/hall-vision.png" alt="What the hall becomes" loading="lazy" style="max-height:480px;" />
+      </div>
+      <div class="ba-line" id="ba-line">
+        <div class="ba-btn" id="ba-btn">⟺</div>
+      </div>
+      <span class="ba-cap l">Now</span>
+      <span class="ba-cap r">What it becomes</span>
+    </div>
+    <p class="map-cap" style="margin-bottom:2.5rem;">Drag the handle to reveal the vision.</p>
+
+    <div class="dpair rv" style="margin-bottom:2rem;">
+      <div class="drow">
+        <span class="dlabel">Surface</span>
+        <p class="body" style="font-size:.93rem;">Come together. Listen, play, speak, be witnessed. The open mic where you finally sing the thing you've carried. The drum circle where you stop thinking and start feeling.</p>
+      </div>
+      <div class="drow">
+        <span class="dlabel">Deep</span>
+        <p class="body" style="font-size:.93rem;">Ritual music at the monastery is <em>chöpa</em>  - offering, not entertainment. <em>Cham</em> is moving meditation. Performer and witness are not two. So the hall has <strong>no fixed stage</strong>  - the architecture refuses the idea of one person performing at others.</p>
+      </div>
+    </div>
+
+    <div class="mcards rv">
+      <div class="mc">
+        <div class="mc-name">Creation</div>
+        <p style="font-size:.88rem; line-height:1.65;">An artist in residence, working alone.</p>
+      </div>
+      <div class="mc">
+        <div class="mc-name">Exchange</div>
+        <p style="font-size:.88rem; line-height:1.65;">Their work meeting the village's own musicians and weavers.</p>
+      </div>
+      <div class="mc">
+        <div class="mc-name">Gathering</div>
+        <p style="font-size:.88rem; line-height:1.65;">Open mic, concert, dialogue, dinner.</p>
+      </div>
+    </div>
+
+    <blockquote class="pq rv">
+      The one condition of the residency: the work must leave something behind. Not a retreat that uses the village as backdrop  - a relationship where something flows both ways.
+    </blockquote>
+
+    <div class="vid-wrap rv" style="height:360px; margin-top:1rem;">
+      <video autoplay muted loop playsinline preload="auto" style="height:360px; width:100%; object-fit:cover;">
+        <source src="assets/sound-healing.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="wrap nxt-row"><button class="nxt" data-to="4">Continue  - The Sacred &amp; Still Layer →</button></div>
+</section>
+
+<!-- ══ Chapter 5  - The Sacred & Still Layer ══ -->
+<section class="chapter" id="c4">
+  <div class="wrap sp">
+    <p class="eyebrow rv">Chapter V</p>
+    <h2 class="title rv" style="max-width:22ch; margin-bottom:1.5rem;">The Sacred &amp; Still Layer</h2>
+    <p class="rv" style="font-style:italic; opacity:.65; margin-bottom:3rem; max-width:52ch; line-height:1.7;">These spaces are protected, not programmed. They make plain what kind of place this is.</p>
+
+    <!-- Monastery -->
+    <div class="ssec rv">
+      <div class="igrid igrid-2" style="height:340px; gap:.5rem;">
+        <div class="ifrm"><img src="assets/meditation-room.png"  alt="Meditation room beside the monastery" loading="lazy" /></div>
+        <div class="ifrm"><img src="assets/monastery-inside.png" alt="Inside the monastery"                 loading="lazy" /></div>
+      </div>
+      <div>
+        <h3 style="font-size:1.2rem; font-weight:400; margin-bottom:1rem;">The Monastery &amp; Meditation Room</h3>
+        <div class="body" style="font-size:.93rem;">
+          <p>Visitors attend as witnesses, in <em>thongdrol</em> mode. The monks' practice always takes precedence over any documentation. Supervised sitting happens in the meditation room, with the resident Lama's blessing.</p>
+          <p style="margin-top:1rem; font-style:italic; opacity:.65;">The Tantric practices are sensitive and kept  - surface engagement only, never claiming deep access.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <!-- Cremation ground -->
+    <div class="rv">
+      <h3 style="font-size:1.2rem; font-weight:400; margin-bottom:1rem;">The Cremation Ground</h3>
+      <div class="body" style="max-width:58ch;">
+        <p>The most direct expression of non-dual practice the village has, where body and mountain, samsara and nirvana, are recognised as not two. Visitors may sit and contemplate when no ceremony is happening, and do nothing else. Never photographed as scenery.</p>
+        <p style="margin-top:1rem; font-style:italic; color:var(--gold);">Most mindful travel avoids death. Rey Mindu cannot, and should not  - it is the most honest thing the village offers.</p>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <!-- Li house -->
+    <div class="rv">
+      <h3 style="font-size:1.2rem; font-weight:400; margin-bottom:1rem;">Kaa Den-Mo-Lee</h3>
+      <div class="body" style="max-width:54ch; margin-bottom:1.5rem;">
+        <p>A 300+ year old traditional Lepcha house, to be restored with the Culture Department as conservation, not renovation. Not a vernacular style but a cosmological form.</p>
+      </div>
+      <div class="rv" style="overflow:hidden;">
+        <img src="assets/li-house.jpg" alt="Kaa Den-Mo-Lee, the traditional Lepcha li house" loading="lazy" style="width:100%; height:auto; display:block;" />
+      </div>
+    </div>
+
+    <div class="nxt-row"><button class="nxt" data-to="5">Continue  - The Rooster Story →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 6  - Sculpture Point & the Rooster Story ══ -->
+<section class="chapter ch-rouge" id="c5">
+  <div class="wrap sp">
+    <p class="eyebrow rv" style="color:var(--gold); opacity:.7;">Chapter VI</p>
+    <h2 class="title rv" style="max-width:24ch; margin-bottom:2rem;">Sculpture Point &amp; the Rooster Story</h2>
+
+    <div class="body rv" style="max-width:54ch;">
+      <p>Near the VLW office, with views toward Gangtok and Rumtek, three sculptures are planned: the Rooster, the Lepcha King, and Guru Rinpoche. This is where the village's own story stands.</p>
+    </div>
+
+    <div class="rv" style="margin-top:2.5rem; height:70vh; max-height:580px; background:#0d0805; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+      <img src="assets/rooster-stone.jpg" alt="The ancient stone from the unfinished bridge, Rey Village" loading="lazy" style="max-width:100%; max-height:100%; width:auto; height:auto; display:block;" />
+    </div>
+    <p class="map-cap" style="margin-bottom:0;">The stone that was the bridge. The footprints of that struggle remain.</p>
+
+    <hr class="rule" />
+
+    <!-- The story -->
+    <div class="rv" style="max-width:52ch; margin:3rem auto; text-align:center;">
+      <p class="eyebrow" style="color:var(--gold); opacity:.7; text-align:center; margin-bottom:2rem;">The Founding Story</p>
+      <p style="font-size:clamp(1rem,2.1vw,1.2rem); font-weight:300; line-height:1.85; font-style:italic;">
+        When evil spirits built a bridge by night, crossing the stream to carry away the people of Rey, the village prayed. Guru Rinpoche, seeing the bridge near completion, released a rooster from Munomkung. Mistaking its crow for the arrival of dawn, the spirits abandoned their work and fled  - leaving the bridge forever unfinished. The stones were scattered across the land, and the footprints of that struggle remain on the rocks to this day. From then on, the villagers lived in peace.
+      </p>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="rv" style="max-width:50ch; margin:0 auto; text-align:center; padding:2rem 0; border-top:1px solid rgba(158,43,37,0.45); border-bottom:1px solid rgba(158,43,37,0.45);">
+      <p style="font-style:italic; font-size:clamp(1rem,2vw,1.15rem); line-height:1.7;">
+        It is not a story about power. It is a story about timing, and witnessing, and the natural order reasserting itself  - a single crow, at exactly the right moment. That is how Rey Mindu itself works.
+      </p>
+    </div>
+
+    <div class="nxt-row"><button class="nxt" data-to="6">Continue  - The Living Curriculum →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 7  - The Living Curriculum ══ -->
+<section class="chapter ch-light" id="c6">
+  <div class="wrap sp">
+    <p class="eyebrow rv" style="color:var(--green);">Chapter VII</p>
+    <h2 class="title rv" style="color:var(--green-dark); max-width:22ch; margin-bottom:2rem;">The Living Curriculum</h2>
+
+    <div class="body rv">
+      <p>The river, the orchard, the forest, the flowers  - not amenities. The Lepcha worldview, made walkable. The landscape is the teacher.</p>
+    </div>
+
+    <div class="igrid igrid-3 rv" style="height:420px; margin:2.5rem 0; gap:1rem;">
+      <div class="ifrm"><img src="assets/fishing-1.png" alt="Sitting at the river, Rey Mindu" loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/fishing-2.png" alt="The river at Rey Village"        loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/farming.jpg"   alt="Farming in Rey Village"          loading="lazy" /></div>
+    </div>
+
+    <div class="dpair rv" style="margin-bottom:2rem;">
+      <div class="drow">
+        <span class="dlabel" style="color:var(--green);">Surface</span>
+        <p class="body" style="font-size:.93rem;">Walk beside the river. Sit in the orchard. Fishing as patience and stillness, not sport. The trek from monastery into the sanctuary as the longest exhale. The village needs more flowers.</p>
+      </div>
+      <div class="drow">
+        <span class="dlabel" style="color:var(--green);">Deep</span>
+        <p class="body" style="font-size:.93rem;">In Lepcha cosmology the river is inhabited by <em>lu</em>  - water spirits. The forest asks for a ceremony honouring the bamboo's spirit before cutting. When a guest is told they may not pluck from the orchard without asking, they are not given a rule  - they are given a teaching.</p>
+      </div>
+    </div>
+
+    <blockquote class="pq rv">
+      The land is a relationship, not a resource.
+    </blockquote>
+
+    <div class="body rv" style="margin-bottom:2rem;">
+      <p>The riverside and fishing area will be cleared and declared sacred  - protected by meaning, not only by rules.</p>
+    </div>
+
+    <div class="igrid igrid-2 rv" style="gap:1rem; margin-top:.5rem; height:340px;">
+      <div class="ifrm">
+        <img src="assets/orange-garden.png" alt="The orange orchard at Rey Village" loading="lazy" />
+      </div>
+      <div class="ifrm">
+        <img src="assets/river.jpg" alt="The river at Rey Village" loading="lazy" style="object-position: center center;" />
+      </div>
+    </div>
+
+    <div class="nxt-row" style="padding-bottom:4rem;"><button class="nxt" data-to="7" style="color:var(--green);">Continue  - Closing →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 8  - The Two Registers / Closing ══ -->
+<section class="chapter" id="c7">
+  <!-- Closing hero -->
+  <div class="hero" style="padding-bottom:5rem;">
+    <img class="hero-bg" src="assets/monastery-far.png" alt="Rey Mindu" loading="lazy" />
+    <div class="hero-scrim" style="background:linear-gradient(to bottom, rgba(33,28,24,0.5) 0%, rgba(33,28,24,0.85) 100%);"></div>
+    <div class="hero-txt">
+      <p class="eyebrow" style="opacity:.45;">Chapter VIII</p>
+      <h2 class="title" style="font-size:clamp(1.3rem,3vw,2rem); max-width:28ch; margin-bottom:1rem;">The Two Registers</h2>
+      <p style="font-style:italic; opacity:.6; font-size:.95rem;">The whole village rests on one contrast it must learn to hold:</p>
+    </div>
+  </div>
+
+  <div class="wrap sp">
+    <div class="closecols rv">
+      <div>
+        <div class="cchead">The Expressive</div>
+        <ul class="cclist">
+          <li>The Unbecoming Space, the Making Space, the Gathering Hall.</li>
+          <li>Sound, colour, release.</li>
+          <li style="font-style:italic; opacity:.65;">Placed so the noise moves into the landscape, never into the quiet.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="cchead">The Still</div>
+        <ul class="cclist">
+          <li>The monastery, the meditation room, the cremation ground, the orchard, the riverside.</li>
+          <li style="font-style:italic; opacity:.65;">And small silence spaces scattered through the village, where people sit together without speaking.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule rv" />
+
+    <div class="rv" style="text-align:center; padding:3.5rem 0;">
+      <p style="font-size:clamp(1.35rem,3vw,2.1rem); font-weight:400; font-style:italic; line-height:1.45; max-width:34ch; margin:0 auto;">A guest moves between the two across a day. The movement itself is the practice.</p>
+    </div>
+
+    <hr class="rule rv" />
+
+    <!-- Map small return -->
+    <div class="rv" style="max-width:560px; margin:0 auto 1.5rem;">
+      <p class="eyebrow" style="text-align:center; margin-bottom:1.25rem;">The Whole of It</p>
+      <div class="map-wrap">
+        <img src="assets/village-map.jpg" alt="Rey Village map" loading="lazy" id="vmap2" />
+      </div>
+    </div>
+
+    <footer>Naman Jain &nbsp;|&nbsp; Sarvahitey &nbsp;|&nbsp; Rey Mindu &nbsp;|&nbsp; 2026</footer>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── Navigation ──
+const chapters = [...document.querySelectorAll('.chapter')];
+const navItems = [...document.querySelectorAll('#nav .ni')];
+let cur = 0;
+
+function go(i) {
+  if (i < 0 || i >= chapters.length) return;
+  chapters[cur].classList.remove('active');
+  navItems[cur].classList.remove('on');
+  chapters[cur].scrollTop = 0;
+  cur = i;
+  chapters[cur].classList.add('active');
+  navItems[cur].classList.add('on');
+  syncMnav();
+  observeChapter(chapters[cur]);
+}
+
+navItems.forEach(ni => ni.addEventListener('click', () => go(+ni.dataset.to)));
+document.querySelectorAll('.nxt').forEach(b => b.addEventListener('click', () => go(+b.dataset.to)));
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(cur - 1);
+});
+
+// ── Mobile nav ──
+const mnav = document.getElementById('mnav');
+chapters.forEach((_, i) => {
+  const d = document.createElement('span');
+  d.className = 'nd';
+  d.addEventListener('click', () => go(i));
+  mnav.appendChild(d);
+});
+function syncMnav() {
+  mnav.querySelectorAll('.nd').forEach((d, i) => {
+    d.style.background = i === cur ? 'var(--gold)' : 'rgba(255,255,255,0.3)';
+    d.style.borderColor = i === cur ? 'var(--gold)' : 'rgba(255,255,255,0.5)';
+  });
+}
+syncMnav();
+
+// ── Scroll reveal ──
+const rObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); rObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+function observeChapter(ch) {
+  ch.querySelectorAll('.rv:not(.on)').forEach(el => rObs.observe(el));
+}
+observeChapter(chapters[0]);
+
+// ── Before/After slider ──
+(function() {
+  const wrap   = document.getElementById('ba');
+  const after  = document.getElementById('ba-after');
+  const line   = document.getElementById('ba-line');
+  if (!wrap) return;
+  let drag = false;
+  let pct  = 50;
+
+  function setPos(clientX) {
+    const r = wrap.getBoundingClientRect();
+    pct = Math.max(2, Math.min(98, ((clientX - r.left) / r.width) * 100));
+    after.style.clipPath = `inset(0 0 0 ${100 - pct}%)`;
+    line.style.left = pct + '%';
+  }
+
+  wrap.addEventListener('mousedown',  e => { drag = true; e.preventDefault(); setPos(e.clientX); });
+  wrap.addEventListener('touchstart', e => { drag = true; setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('mouseup',   () => drag = false);
+  document.addEventListener('touchend',  () => drag = false);
+  document.addEventListener('mousemove', e => { if (drag) setPos(e.clientX); });
+  document.addEventListener('touchmove', e => { if (drag) setPos(e.touches[0].clientX); }, { passive: true });
+})();
+
+// ── Grain overlay ──
+const grain = document.createElement('div');
+grain.className = 'grain-overlay';
+document.body.appendChild(grain);
+
+// ── Ghost chapter numerals ──
+const numerals = ['I','II','III','IV','V','VI','VII','VIII'];
+chapters.forEach((ch, i) => {
+  const g = document.createElement('div');
+  g.className = 'ghost-num';
+  g.textContent = numerals[i];
+  ch.appendChild(g);
+});
+
+// ── Ornamental dividers (replace hr.rule) ──
+document.querySelectorAll('hr.rule').forEach(hr => {
+  const orn = document.createElement('div');
+  orn.className = 'orn-rule';
+  orn.innerHTML = '<span class="orn-gem"></span>';
+  hr.parentNode.replaceChild(orn, hr);
+});
+
+// ── Map lightbox ──
+['vmap','vmap2'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('click', () => {
+    const ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;cursor:zoom-out;';
+    const img = document.createElement('img');
+    img.src = el.src;
+    img.style.cssText = 'max-width:95vw;max-height:95vh;object-fit:contain;';
+    ov.appendChild(img);
+    ov.addEventListener('click', () => document.body.removeChild(ov));
+    document.body.appendChild(ov);
+  });
+});
+</script>
+</body>
+</html>
