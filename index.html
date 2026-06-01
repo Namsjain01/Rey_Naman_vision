@@ -464,7 +464,8 @@ em { font-style: italic; }
 }
 .nxt:hover { opacity: 1; }
 .ch-light .nxt { color: var(--green); }
-.nxt-row { text-align: right; padding: 1.5rem 0 5rem; }
+.nxt-row { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0 5rem; }
+.nxt-row .nxt:only-child { margin-left: auto; }
 
 /* ── Footer ── */
 footer {
@@ -1161,6 +1162,29 @@ observeChapter(chapters[0]);
   document.addEventListener('mousemove', e => { if (drag) setPos(e.clientX); });
   document.addEventListener('touchmove', e => { if (drag) setPos(e.touches[0].clientX); }, { passive: true });
 })();
+
+// ── Back buttons ──
+const chNames = [
+  'The Place','The Common Thread','Two Roots',
+  'Arc of Expression','Sacred & Still','The Rooster Story',
+  'Living Curriculum','Closing'
+];
+chapters.forEach((ch, i) => {
+  if (i === 0) return;
+  let row = ch.querySelector('.nxt-row');
+  if (!row) {
+    row = document.createElement('div');
+    row.className = 'wrap nxt-row';
+    const footer = ch.querySelector('footer');
+    footer.parentNode.insertBefore(row, footer);
+  }
+  const back = document.createElement('button');
+  back.className = 'nxt';
+  back.dataset.to = i - 1;
+  back.textContent = '← ' + chNames[i - 1];
+  back.addEventListener('click', () => go(i - 1));
+  row.insertBefore(back, row.firstChild);
+});
 
 // ── Grain overlay ──
 const grain = document.createElement('div');
