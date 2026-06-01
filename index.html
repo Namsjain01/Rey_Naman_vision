@@ -783,7 +783,7 @@ footer {
         <p style="margin-top:1.5rem; font-style:italic; color:var(--gold); font-size:1rem;">Anger and peace are not two.</p>
       </div>
       <div class="vid-wrap rv" style="height:400px;">
-        <video autoplay muted loop playsinline preload="auto" style="height:400px; width:100%; object-fit:cover;">
+        <video autoplay muted loop playsinline preload="none" style="height:400px; width:100%; object-fit:cover;">
           <source src="assets/unbecoming.mp4" type="video/mp4">
         </video>
       </div>
@@ -812,12 +812,12 @@ footer {
       <div class="rv">
         <div class="igrid igrid-2" style="height:260px; gap:.5rem;">
           <div class="ifrm" style="overflow:hidden;">
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <video autoplay muted loop playsinline preload="none" style="width:100%; height:100%; object-fit:cover; display:block;">
               <source src="assets/paint-throw.mp4" type="video/mp4">
             </video>
           </div>
           <div class="ifrm" style="overflow:hidden;">
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <video autoplay muted loop playsinline preload="none" style="width:100%; height:100%; object-fit:cover; display:block;">
               <source src="assets/pottery.mp4" type="video/mp4">
             </video>
           </div>
@@ -888,7 +888,7 @@ footer {
     </blockquote>
 
     <div class="vid-wrap rv" style="height:360px; margin-top:1rem;">
-      <video autoplay muted loop playsinline preload="auto" style="height:360px; width:100%; object-fit:cover;">
+      <video autoplay muted loop playsinline preload="none" style="height:360px; width:100%; object-fit:cover;">
         <source src="assets/sound-healing.mp4" type="video/mp4">
       </video>
     </div>
@@ -1097,11 +1097,21 @@ function go(i) {
   chapters[cur].classList.remove('active');
   navItems[cur].classList.remove('on');
   chapters[cur].scrollTop = 0;
+  chapters[cur].querySelectorAll('video').forEach(v => v.pause());
   cur = i;
   chapters[cur].classList.add('active');
   navItems[cur].classList.add('on');
   syncMnav();
   observeChapter(chapters[cur]);
+
+  // Load and play videos only when their chapter is entered
+  chapters[cur].querySelectorAll('video').forEach(v => {
+    if (v.readyState === 0) {
+      v.preload = 'auto';
+      v.load();
+    }
+    v.play().catch(() => {});
+  });
 }
 
 navItems.forEach(ni => ni.addEventListener('click', () => go(+ni.dataset.to)));
