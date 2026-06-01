@@ -385,6 +385,24 @@ em { font-style: italic; }
 }
 .ba-cap.l { left: 0.6rem; }
 .ba-cap.r { right: 0.6rem; }
+.ba-hint {
+  position: absolute;
+  top: calc(50% + 26px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: system-ui, sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.45);
+  padding: 0.3em 0.85em;
+  white-space: nowrap;
+  pointer-events: none;
+  border-radius: 2px;
+  transition: opacity 0.35s ease;
+}
+.ba-hint.gone { opacity: 0; }
 
 /* ── Video ── */
 .vid-wrap { position: relative; overflow: hidden; background: #000; }
@@ -854,8 +872,8 @@ footer {
       </div>
       <span class="ba-cap l">Now</span>
       <span class="ba-cap r">What it becomes</span>
+      <span class="ba-hint" id="ba-hint">Drag to reveal the vision</span>
     </div>
-    <p class="map-cap" style="margin-bottom:2.5rem;">Drag the handle to reveal the vision.</p>
 
     <div class="dpair rv" style="margin-bottom:2rem;">
       <div class="drow">
@@ -1165,8 +1183,16 @@ observeChapter(chapters[0]);
     line.style.left = pct + '%';
   }
 
-  wrap.addEventListener('mousedown',  e => { drag = true; e.preventDefault(); setPos(e.clientX); });
-  wrap.addEventListener('touchstart', e => { drag = true; setPos(e.touches[0].clientX); }, { passive: true });
+  const hint = document.getElementById('ba-hint');
+  function dismissHint() {
+    if (hint && !hint.classList.contains('gone')) {
+      hint.classList.add('gone');
+      setTimeout(() => hint.remove(), 380);
+    }
+  }
+
+  wrap.addEventListener('mousedown',  e => { drag = true; e.preventDefault(); setPos(e.clientX); dismissHint(); });
+  wrap.addEventListener('touchstart', e => { drag = true; setPos(e.touches[0].clientX); dismissHint(); }, { passive: true });
   document.addEventListener('mouseup',   () => drag = false);
   document.addEventListener('touchend',  () => drag = false);
   document.addEventListener('mousemove', e => { if (drag) setPos(e.clientX); });
