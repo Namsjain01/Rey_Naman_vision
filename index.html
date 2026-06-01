@@ -862,7 +862,7 @@ footer {
     <p class="rv" style="font-style:italic; opacity:.6; margin-bottom:2rem; font-size:.95rem;">A 12-room building  - from what it is now, to what it can become.</p>
 
     <!-- Before/After slider -->
-    <div class="ba-wrap rv" id="ba" style="max-height:480px;">
+    <div class="ba-wrap rv" id="ba" style="max-height:480px; margin-bottom:1.75rem;">
       <img src="assets/hall-now.png" alt="The gathering hall now" loading="lazy" style="max-height:480px; width:100%; object-fit:cover;" />
       <div class="ba-after" id="ba-after">
         <img src="assets/hall-vision.png" alt="What the hall becomes" loading="lazy" style="max-height:480px;" />
@@ -1184,17 +1184,19 @@ observeChapter(chapters[0]);
   }
 
   const hint = document.getElementById('ba-hint');
-  function dismissHint() {
-    if (hint && !hint.classList.contains('gone')) {
-      hint.classList.add('gone');
-      setTimeout(() => hint.remove(), 380);
-    }
+  let hintTimer;
+  function hideHint() {
+    if (hint) hint.classList.add('gone');
+    clearTimeout(hintTimer);
+  }
+  function showHint() {
+    hintTimer = setTimeout(() => { if (hint) hint.classList.remove('gone'); }, 600);
   }
 
-  wrap.addEventListener('mousedown',  e => { drag = true; e.preventDefault(); setPos(e.clientX); dismissHint(); });
-  wrap.addEventListener('touchstart', e => { drag = true; setPos(e.touches[0].clientX); dismissHint(); }, { passive: true });
-  document.addEventListener('mouseup',   () => drag = false);
-  document.addEventListener('touchend',  () => drag = false);
+  wrap.addEventListener('mousedown',  e => { drag = true; e.preventDefault(); setPos(e.clientX); hideHint(); });
+  wrap.addEventListener('touchstart', e => { drag = true; setPos(e.touches[0].clientX); hideHint(); }, { passive: true });
+  document.addEventListener('mouseup',   () => { if (drag) { drag = false; showHint(); } });
+  document.addEventListener('touchend',  () => { if (drag) { drag = false; showHint(); } });
   document.addEventListener('mousemove', e => { if (drag) setPos(e.clientX); });
   document.addEventListener('touchmove', e => { if (drag) setPos(e.touches[0].clientX); }, { passive: true });
 })();
