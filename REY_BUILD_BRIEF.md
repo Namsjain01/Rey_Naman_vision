@@ -1,4 +1,4 @@
-# Rey Mindu — Interactive HTML Build Brief
+# Rey Village — Interactive HTML Build Brief
 ### For Claude Code | Prepared for Naman Jain, Sarvahitey
 
 ---
@@ -20,14 +20,14 @@ freedom over **craft**: layout, motion, typography execution, and polish.
 
 ## 1. What this is
 
-A single-page interactive website that lets people **see** the vision for Rey Mindu rather than
-read it in a document. Rey Mindu is a Lepcha village in East Sikkim being shaped into a mindful
+A single-page interactive website that lets people **see** the vision for Rey Village rather than
+read it in a document. Rey Village is a Lepcha village in East Sikkim being shaped into a mindful
 living village — a mental well-being destination grounded in living Kagyu Buddhist and Lepcha
 tradition, **not** a generic wellness resort.
 
 **Primary audience:** the core project team and partners (people who already believe in the
 project and need to see it expressed clearly), plus first-time viewers who need full context.
-Build it so it works for someone encountering Rey Mindu for the first time.
+Build it so it works for someone encountering Rey Village for the first time.
 
 **What it must do:** make the viewer feel the spirit of the place and understand how every
 space connects to one common thread — mental well-being, witnessed through *thongdrol*
@@ -156,7 +156,7 @@ warm, unhurried. Short lines. Lots of breathing room.
 *Hero: `monastery-far.png` (the beautiful distant monastery shot), one line over or beneath it.*
 
 Opening line (large, quiet):
-> Rey Mindu is already a mindful village. We are not building one.
+> Rey is already a mindful village. We are not building one.
 
 Body:
 > A Lepcha village in East Sikkim, between Rumtek and Lingdum monasteries. A *bongthing* in his
@@ -189,7 +189,7 @@ is the whole of it" beat.*
 > mental well-being, Vajrayana Buddhism, Lepcha culture, art, music and sound, local
 > sensitivities, and local experiences. Not heavy. Not clinical. A place that restores you.
 
-> The thread is mental well-being. But Rey Mindu already owns the words for it.
+> The thread is mental well-being. But Rey already owns the words for it.
 
 Three terms, presented as three cards or a slow reveal:
 - **Thongdrol** — *liberation through seeing.* The one who looks and the thing looked at are not two.
@@ -217,7 +217,7 @@ Closing line:
 > without a dharma talk.
 
 Pull-quote:
-> Any wellness resort can build a breaking room. Only Rey Mindu can build one where the reason
+> Any wellness resort can build a breaking room. Only Rey can build one where the reason
 > *why* you break things already lives in the monastery 200 metres away.
 
 ---
@@ -282,7 +282,7 @@ Intro:
 - **The Cremation Ground** — the most direct expression of non-dual practice the village has,
   where body and mountain, samsara and nirvana, are recognised as not two. Visitors may sit and
   contemplate when no ceremony is happening, and do nothing else. Never photographed as scenery.
-  *Most mindful travel avoids death. Rey Mindu cannot, and should not — it is the most honest
+  *Most mindful travel avoids death. Rey cannot, and should not — it is the most honest
   thing the village offers.*
 - **Kaa Den-Mo-Lee (the li house)** — a 130+ year old traditional Lepcha house, to be restored
   with the Culture Department as conservation, not renovation. Not a vernacular style but a
@@ -306,7 +306,7 @@ The story (present beautifully — this is folklore, handle it with care):
 
 Reflection line:
 > It is not a story about power. It is a story about timing, and witnessing, and the natural order
-> reasserting itself — a single crow, at exactly the right moment. That is how Rey Mindu itself works.
+> reasserting itself — a single crow, at exactly the right moment. That is how Rey itself works.
 
 ---
 
@@ -381,7 +381,7 @@ woven-pattern borders/dividers) rather than generic mandalas. Keep it minimal an
 
 Footer of the final chapter, quiet and small:
 
-> Naman Jain  |  Sarvahitey  |  Rey Mindu  |  2026
+> Rey Village  |  Naman Jain  |  Sarvahitey  |  2026
 
 ---
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rey Mindu  - A Mindful Village</title>
+<title>Rey Village — A Mindful Living Village</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -602,7 +602,7 @@ footer {
 .ch-deep  .pq::before { color: #d4a84b; }
 
 /* ── Warm ambient glow on dark chapters ── */
-#c0, #c2, #c3, #c4, #c7 {
+#c0, #c2, #c3, #c4, #c6b, #c7 {
   background-image: radial-gradient(ellipse at 65% 5%, rgba(52,28,10,0.4) 0%, transparent 60%);
 }
 #c1 {
@@ -611,6 +611,11 @@ footer {
 #c5 {
   background-image: radial-gradient(ellipse at 50% 0%, rgba(80,18,12,0.4) 0%, transparent 55%);
 }
+
+/* ── The Confluence: slightly smaller type ── */
+#c6b .title { font-size: clamp(1.25rem, 2.6vw, 1.9rem); }
+#c6b .body  { font-size: clamp(0.88rem, 1.6vw, 0.96rem); line-height: 1.75; }
+#c6b .pq    { font-size: clamp(0.95rem, 2vw, 1.12rem); }
 
 /* ── Thin scrollbar ── */
 .chapter::-webkit-scrollbar { width: 2px; }
@@ -639,11 +644,12 @@ footer {
   <div class="ni"     data-to="1"><span class="ni-label">Common Thread</span><span class="nd"></span></div>
   <div class="ni"     data-to="2"><span class="ni-label">Two Roots</span><span class="nd"></span></div>
   <div class="ni"     data-to="3"><span class="ni-label">Arc of Expression</span><span class="nd"></span></div>
-  <div class="ni"     data-to="4"><span class="ni-label">Sacred &amp; Still</span><span class="nd"></span></div>
-  <div class="ni"     data-to="5"><span class="ni-label">The Rooster</span><span class="nd"></span></div>
-  <div class="ni"     data-to="6"><span class="ni-label">Living Curriculum</span><span class="nd"></span></div>
-  <div class="ni"     data-to="7"><span class="ni-label">Work &amp; Stay</span><span class="nd"></span></div>
-  <div class="ni"     data-to="8"><span class="ni-label">Closing</span><span class="nd"></span></div>
+  <div class="ni"     data-to="4"><span class="ni-label">The Confluence</span><span class="nd"></span></div>
+  <div class="ni"     data-to="5"><span class="ni-label">Sacred &amp; Still</span><span class="nd"></span></div>
+  <div class="ni"     data-to="6"><span class="ni-label">The Rooster</span><span class="nd"></span></div>
+  <div class="ni"     data-to="7"><span class="ni-label">Living Curriculum</span><span class="nd"></span></div>
+  <div class="ni"     data-to="8"><span class="ni-label">Work &amp; Stay</span><span class="nd"></span></div>
+  <div class="ni"     data-to="9"><span class="ni-label">Closing</span><span class="nd"></span></div>
 </nav>
 
 <!-- Mobile nav -->
@@ -655,11 +661,11 @@ footer {
 <section class="chapter active" id="c0">
   <!-- Hero -->
   <div class="hero">
-    <img class="hero-bg" src="assets/monastery-far.webp" alt="The monastery at Rey Mindu rising through mountain mist" loading="eager" />
+    <img class="hero-bg" src="assets/monastery-far.webp" alt="The monastery at Rey Village rising through mountain mist" loading="eager" />
     <div class="hero-scrim"></div>
     <div class="hero-txt">
-      <p class="eyebrow" style="opacity:.5;">Rey Mindu · East Sikkim</p>
-      <h1 class="display">In Rey Mindu, mindful living is not a programme. It is already the way the village lives.</h1>
+      <p class="eyebrow" style="opacity:.5;">Rey Village · East Sikkim</p>
+      <h1 class="display">In Rey Village, mindful living is not a programme. It is already the way the village lives.</h1>
     </div>
   </div>
 
@@ -694,6 +700,24 @@ footer {
     <p class="map-cap">The village holds two zones  - the Village Core, and the Riverside Area about 1.3&thinsp;km away.</p>
   </div>
 
+  <!-- A living museum -->
+  <div class="wrap rv" style="padding-top:1rem;">
+    <hr class="rule" />
+    <p class="eyebrow" style="margin-bottom:1.25rem;">A Living Museum</p>
+    <div class="body" style="max-width:52ch;">
+      <p>At every place that carries meaning, a QR code. A guest scans it and hears that place told in the voice of a villager, its history, its myth, its memory, kept by the people who carry it.</p>
+      <p>No guide. No signboard. You walk, you scan, you listen. The whole village becomes the museum.</p>
+      <p style="font-style:italic; opacity:.7;">Being built with the village. Not finished yet.</p>
+    </div>
+    <div class="rv" style="margin-top:2rem; overflow:hidden;">
+      <img src="assets/living-museum.jpg" alt="A guest scanning a QR code at a trail-side marker to hear a story" loading="lazy" style="width:100%; height:auto; display:block;" />
+    </div>
+    <div class="slot" style="margin-top:2rem;">
+      <span class="slot-tag">Village Map · In Progress</span>
+      <span class="slot-desc">A walkable map of the village, place by place, voice by voice.</span>
+    </div>
+  </div>
+
   <div class="wrap nxt-row"><button class="nxt" data-to="1">Continue  - The Common Thread →</button></div>
 </section>
 
@@ -705,7 +729,7 @@ footer {
 
     <div class="body rv">
       <p>Combine seven pillars into one offering, with a single thread running through all of it: mental well-being, Vajrayana Buddhism, Lepcha culture, art, music and sound, local sensitivities, and local experiences. Not heavy. Not clinical. A place that restores you.</p>
-      <p>The thread is mental well-being. But Rey Mindu already owns the words for it.</p>
+      <p>The thread is mental well-being. But Rey already owns the words for it.</p>
     </div>
 
     <hr class="rule" />
@@ -766,7 +790,7 @@ footer {
     </div>
 
     <blockquote class="pq rv">
-      Any wellness resort can build a breaking room. Only Rey Mindu can build one where the reason <em>why</em> you break things already lives in the monastery 200 metres away.
+      Any wellness resort can build a breaking room. Only Rey can build one where the reason <em>why</em> you break things already lives in the monastery 200 metres away.
     </blockquote>
 
     <div class="nxt-row"><button class="nxt" data-to="3">Continue  - The Arc of Expression →</button></div>
@@ -892,21 +916,6 @@ footer {
       </div>
     </div>
 
-    <div class="mcards rv">
-      <div class="mc">
-        <div class="mc-name">Creation</div>
-        <p style="font-size:.88rem; line-height:1.65;">An artist in residence, working alone.</p>
-      </div>
-      <div class="mc">
-        <div class="mc-name">Exchange</div>
-        <p style="font-size:.88rem; line-height:1.65;">Their work meeting the village's own musicians and weavers.</p>
-      </div>
-      <div class="mc">
-        <div class="mc-name">Gathering</div>
-        <p style="font-size:.88rem; line-height:1.65;">Open mic, concert, dialogue, dinner.</p>
-      </div>
-    </div>
-
     <div class="body rv" style="margin-top:1.5rem; margin-bottom:0;">
       <p>The same building also holds quiet space to work, so that those who stay for a season are not choosing between their living and their craft.</p>
     </div>
@@ -922,13 +931,71 @@ footer {
     </div>
   </div>
 
-  <div class="wrap nxt-row"><button class="nxt" data-to="4">Continue  - The Sacred &amp; Still Layer →</button></div>
+  <div class="wrap nxt-row"><button class="nxt" data-to="4">Continue  - The Confluence →</button></div>
 </section>
 
-<!-- ══ Chapter 5  - The Sacred & Still Layer ══ -->
-<section class="chapter" id="c4">
+<!-- ══ Chapter 5  - The Confluence ══ -->
+<section class="chapter ch-mid" id="c6b">
   <div class="wrap sp">
     <p class="eyebrow rv">Chapter V</p>
+    <h2 class="title rv" style="max-width:24ch; margin-bottom:2rem;">The Confluence</h2>
+
+    <div class="body rv">
+      <p>Sikkim makes things by hand, and has for a long time. Notebooks drawn in ink, cover by cover. Flowers painted from life. Masks carved for the monastery. Wool spun from hill sheep and woven into cloth. Baskets bent from river bamboo. The artists are here, and they are working. What is missing has never been the talent. It is the platform, and the people who come to see. For now, the best platform they have is a tent at a festival, for a week, once a year.</p>
+      <p>Rey can offer something the tent cannot. Not a stall at an event, but a place to stay and work. A weaver sets up a loom and stays a season. A carver works in a doorway. The people who walk past did not wander in. They came here because they wanted to be near exactly this.</p>
+    </div>
+
+    <div class="igrid igrid-3 rv" style="gap:1rem; height:300px; margin:2.5rem 0 1rem;">
+      <div class="ifrm"><img src="assets/sikkim-notebooks.jpg" alt="Hand-drawn notebooks at Sikkim Utsav, 2026" loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/sikkim-mask.jpg" alt="A carved protector mask, with botanical paintings behind it" loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/sikkim-art-stall.jpg" alt="A craft stall at Sikkim Utsav, 2026" loading="lazy" /></div>
+    </div>
+    <!-- standing pair -->
+    <div class="igrid igrid-2 rv" style="gap:1rem; align-items:start; margin-bottom:1rem;">
+      <div class="ifrm" style="background:none;"><img src="assets/sikkim-wool-weaving.jpg" alt="Wool weaving from Chuba village" loading="lazy" style="width:100%; height:auto; display:block;" /></div>
+      <div class="ifrm" style="background:none;"><img src="assets/sikkim-bamboo-baskets.jpg" alt="Bamboo baskets, woven by hand" loading="lazy" style="width:100%; height:auto; display:block;" /></div>
+    </div>
+    <p class="map-cap" style="text-align:left; margin-bottom:2.5rem;">Notebooks, a carved protector, a craft stall, wool weaving, bamboo. Photographed at <em>Sikkim Utsav</em>, the state's yearly craft festival, in 2026, where for now the work waits under a tent.</p>
+
+    <div class="body rv">
+      <p>The Confluence does two things at once. It is a space to make, with the room and the quiet to do the work. And it is a platform to meet, where people who care about the same things, from across Sikkim and from far beyond it, find each other.</p>
+    </div>
+
+    <div class="mcards rv">
+      <div class="mc">
+        <div class="mc-name">Creation</div>
+        <p style="font-size:.88rem; line-height:1.65;">An artist in residence, working alone.</p>
+      </div>
+      <div class="mc">
+        <div class="mc-name">Exchange</div>
+        <p style="font-size:.88rem; line-height:1.65;">Their work meeting the musicians and weavers of the village, and of Sikkim.</p>
+      </div>
+      <div class="mc">
+        <div class="mc-name">Gathering</div>
+        <p style="font-size:.88rem; line-height:1.65;">Open mic, concert, dialogue, dinner.</p>
+      </div>
+    </div>
+
+    <div class="body rv" style="margin-top:1.75rem;">
+      <p>Someone comes for the village itself, for the river and the quiet, and ends up sitting next to a man carving a dharma protector, or a woman at a traditional loom. They talk. That is the whole of it. Not a gallery, where the work hangs behind glass and a label tells you what to think. A confluence, where two kinds of people who would otherwise never meet end up at the same table.</p>
+    </div>
+
+    <blockquote class="pq rv">
+      People come from everywhere to meet here. Not for status, not for what anyone has earned, but for a shared love of art, of music, of what the human hand can make.
+    </blockquote>
+
+    <div class="body rv" style="margin-bottom:0;">
+      <p>The gathering hall is the formal room for this, the same hall with no fixed stage. But it does not stay in the hall. It moves into doorways, under the trees, down to the water, wherever the light is good and someone has something to make.</p>
+    </div>
+
+    <div class="nxt-row"><button class="nxt" data-to="5">Continue  - The Sacred &amp; Still Layer →</button></div>
+  </div>
+</section>
+
+<!-- ══ Chapter 6  - The Sacred & Still Layer ══ -->
+<section class="chapter" id="c4">
+  <div class="wrap sp">
+    <p class="eyebrow rv">Chapter VI</p>
     <h2 class="title rv" style="max-width:22ch; margin-bottom:1.5rem;">The Sacred &amp; Still Layer</h2>
     <p class="rv" style="font-style:italic; opacity:.65; margin-bottom:3rem; max-width:52ch; line-height:1.7;">These spaces are protected, not programmed. They make plain what kind of place this is.</p>
 
@@ -954,7 +1021,7 @@ footer {
       <h3 style="font-size:1.2rem; font-weight:400; margin-bottom:1rem;">The Cremation Ground</h3>
       <div class="body" style="max-width:58ch;">
         <p>The most direct expression of non-dual practice the village has, where body and mountain, samsara and nirvana, are recognised as not two. Visitors may sit and contemplate when no ceremony is happening, and do nothing else. Never photographed as scenery.</p>
-        <p style="margin-top:1rem; font-style:italic; color:var(--gold);">Most mindful travel avoids death. Rey Mindu cannot, and should not  - it is the most honest thing the village offers.</p>
+        <p style="margin-top:1rem; font-style:italic; color:var(--gold);">Most mindful travel avoids death. Rey cannot, and should not  - it is the most honest thing the village offers.</p>
       </div>
     </div>
 
@@ -971,14 +1038,14 @@ footer {
       </div>
     </div>
 
-    <div class="nxt-row"><button class="nxt" data-to="5">Continue  - The Rooster Story →</button></div>
+    <div class="nxt-row"><button class="nxt" data-to="6">Continue  - The Rooster Story →</button></div>
   </div>
 </section>
 
-<!-- ══ Chapter 6  - Sculpture Point & the Rooster Story ══ -->
+<!-- ══ Chapter 7  - Sculpture Point & the Rooster Story ══ -->
 <section class="chapter ch-rouge" id="c5">
   <div class="wrap sp">
-    <p class="eyebrow rv" style="color:var(--gold); opacity:.7;">Chapter VI</p>
+    <p class="eyebrow rv" style="color:var(--gold); opacity:.7;">Chapter VII</p>
     <h2 class="title rv" style="max-width:24ch; margin-bottom:2rem;">Sculpture Point &amp; the Rooster Story</h2>
 
     <div class="body rv" style="max-width:54ch;">
@@ -1004,18 +1071,18 @@ footer {
 
     <div class="rv" style="max-width:50ch; margin:0 auto; text-align:center; padding:2rem 0; border-top:1px solid rgba(158,43,37,0.45); border-bottom:1px solid rgba(158,43,37,0.45);">
       <p style="font-style:italic; font-size:clamp(1rem,2vw,1.15rem); line-height:1.7;">
-        It is not a story about power. It is a story about timing, and witnessing, and the natural order reasserting itself  - a single crow, at exactly the right moment. That is how Rey Mindu itself works.
+        It is not a story about power. It is a story about timing, and witnessing, and the natural order reasserting itself  - a single crow, at exactly the right moment. That is how Rey itself works.
       </p>
     </div>
 
-    <div class="nxt-row"><button class="nxt" data-to="6">Continue  - The Living Curriculum →</button></div>
+    <div class="nxt-row"><button class="nxt" data-to="7">Continue  - The Living Curriculum →</button></div>
   </div>
 </section>
 
-<!-- ══ Chapter 7  - The Living Curriculum ══ -->
+<!-- ══ Chapter 8  - The Living Curriculum ══ -->
 <section class="chapter ch-light" id="c6">
   <div class="wrap sp">
-    <p class="eyebrow rv" style="color:var(--green);">Chapter VII</p>
+    <p class="eyebrow rv" style="color:var(--green);">Chapter VIII</p>
     <h2 class="title rv" style="color:var(--green-dark); max-width:22ch; margin-bottom:2rem;">The Living Curriculum</h2>
 
     <div class="body rv">
@@ -1023,7 +1090,7 @@ footer {
     </div>
 
     <div class="igrid igrid-3 rv" style="height:420px; margin:2.5rem 0; gap:1rem;">
-      <div class="ifrm"><img src="assets/fishing-1.webp" alt="Sitting at the river, Rey Mindu" loading="lazy" /></div>
+      <div class="ifrm"><img src="assets/fishing-1.webp" alt="Sitting at the river, Rey Village" loading="lazy" /></div>
       <div class="ifrm"><img src="assets/fishing-2.webp" alt="The river at Rey Village"        loading="lazy" /></div>
       <div class="ifrm"><img src="assets/farming.jpg"   alt="Farming in Rey Village"          loading="lazy" /></div>
     </div>
@@ -1057,11 +1124,39 @@ footer {
       </div>
     </div>
 
-    <div class="nxt-row" style="padding-bottom:4rem;"><button class="nxt" data-to="7" style="color:var(--green);">Continue  - Work, and Be Changed →</button></div>
+    <!-- Hot stone bath -->
+    <div class="rv" style="padding-top:1rem;">
+      <hr class="rule" />
+      <span class="stag rv" style="background:var(--green);">A Practice the Tradition Holds</span>
+      <h3 class="shead rv" style="color:var(--green-dark); margin-top:.6rem;">The Hot Stone Bath</h3>
+      <p class="rv" style="font-size:.85rem; font-style:italic; color:var(--green-dark); opacity:.6; max-width:48ch; margin-bottom:1.75rem; line-height:1.6;">Not a treatment offered to a guest. Something older, that the village can receive a guest into.</p>
+
+      <!-- the tub, standing -->
+      <div class="rv" style="margin-bottom:2rem; display:flex; justify-content:center;">
+        <img src="assets/hot-stone-bath.jpg" alt="A wooden tub set into dark wood, herbs and flowers floating on still water" loading="lazy" style="max-height:560px; width:auto; max-width:100%; height:auto; display:block;" />
+      </div>
+
+      <div class="dpair rv" style="margin-bottom:1.5rem;">
+        <div class="drow">
+          <span class="dlabel" style="color:var(--green);">Surface</span>
+          <p class="body" style="font-size:.93rem;">River stones, heated in a wood fire for five or six hours, lowered into a wooden tub of water drawn from the village. Herbs gathered that morning from the jungle float on the dark surface. You step in. The heat reaches the parts of you that have been holding on. Nothing is performed. Nothing is explained.</p>
+        </div>
+        <div class="drow">
+          <span class="dlabel" style="color:var(--green);">Deep</span>
+          <p class="body" style="font-size:.93rem;">The bath belongs to <em>lum</em>, the medicinal bathing of Sowa Rigpa, the Tibetan and Sikkimese healing tradition that works on the body through water, mineral, and plant. The stones come from the river here. The water is the village's water. The herbs are from the forest above it. The land you have been walking through enters the water, and then it enters you. It is not in the village yet. It belongs to the world the village sits inside.</p>
+        </div>
+      </div>
+
+      <blockquote class="pq rv">
+        Stone, water, herb, all of it from the same valley. The body is met by the place it is resting in.
+      </blockquote>
+    </div>
+
+    <div class="nxt-row" style="padding-bottom:4rem;"><button class="nxt" data-to="8" style="color:var(--green);">Continue  - Work, and Be Changed →</button></div>
   </div>
 </section>
 
-<!-- ══ Chapter 8  - Work, and Be Changed ══ -->
+<!-- ══ Chapter 9  - Work, and Be Changed ══ -->
 <section class="chapter" id="c7">
   <div class="wrap sp">
     <p class="eyebrow rv">The Practical Question</p>
@@ -1069,12 +1164,12 @@ footer {
 
     <div class="ssec rv" style="align-items:start; gap:3rem;">
       <div class="body" style="flex:1;">
-        <p>Most people cannot disappear for a season. There are deadlines, a job, a team in another timezone. So the quiet truth of Rey Mindu is this: you can keep all of it, and still be here.</p>
+        <p>Most people cannot disappear for a season. There are deadlines, a job, a team in another timezone. So the quiet truth of Rey is this: you can keep all of it, and still be here.</p>
         <p>The village is being built to support real, serious work. High-speed connectivity across the homestays. Coworking spaces, some with the mountains in full view, some quiet and enclosed for deep focus. A cafeteria for the in-between hours. Power backup so a storm never costs you a call. Stays measured in weeks and seasons, not nights.</p>
         <p>But the work is not the point. The work is the reason you can stay long enough for the rest of it to reach you. You answer your emails in the morning. In the evening you sit by the river, or in the hall while someone plays, or in silence with people you have stopped needing to talk to. Slowly, without trying, the way you live begins to change.</p>
       </div>
       <div style="flex:1;">
-        <img src="assets/coworking.webp" alt="Coworking space at Rey Mindu, with mountains in view" loading="lazy" style="width:100%; height:auto; display:block;" />
+        <img src="assets/coworking.webp" alt="Coworking space at Rey Village, with mountains in view" loading="lazy" style="width:100%; height:auto; display:block;" />
       </div>
     </div>
 
@@ -1088,18 +1183,18 @@ footer {
       You came able to work from anywhere. You stay because this is a place worth staying for.
     </blockquote>
 
-    <div class="wrap nxt-row"><button class="nxt" data-to="8">Continue  - Closing →</button></div>
+    <div class="wrap nxt-row"><button class="nxt" data-to="9">Continue  - Closing →</button></div>
   </div>
 </section>
 
-<!-- ══ Chapter 9  - The Two Registers / Closing ══ -->
+<!-- ══ Chapter 10  - The Two Registers / Closing ══ -->
 <section class="chapter" id="c8">
   <!-- Closing hero -->
   <div class="hero" style="padding-bottom:5rem;">
-    <img class="hero-bg" src="assets/monastery-far.webp" alt="Rey Mindu" loading="lazy" />
+    <img class="hero-bg" src="assets/monastery-far.webp" alt="Rey Village" loading="lazy" />
     <div class="hero-scrim" style="background:linear-gradient(to bottom, rgba(33,28,24,0.5) 0%, rgba(33,28,24,0.85) 100%);"></div>
     <div class="hero-txt">
-      <p class="eyebrow" style="opacity:.45;">Chapter IX</p>
+      <p class="eyebrow" style="opacity:.45;">Chapter X</p>
       <h2 class="title" style="font-size:clamp(1.3rem,3vw,2rem); max-width:28ch; margin-bottom:1rem;">The Two Registers</h2>
       <p style="font-style:italic; opacity:.6; font-size:.95rem;">The whole village rests on one contrast it must learn to hold:</p>
     </div>
@@ -1140,7 +1235,7 @@ footer {
       </div>
     </div>
 
-    <footer>Naman Jain &nbsp;|&nbsp; Sarvahitey &nbsp;|&nbsp; Rey Mindu &nbsp;|&nbsp; 2026</footer>
+    <footer>Rey Village &nbsp;|&nbsp; Naman Jain &nbsp;|&nbsp; Sarvahitey &nbsp;|&nbsp; 2026</footer>
   </div>
 </section>
 
@@ -1247,8 +1342,8 @@ observeChapter(chapters[0]);
 // ── Back buttons ──
 const chNames = [
   'The Place','The Common Thread','Two Roots',
-  'Arc of Expression','Sacred & Still','The Rooster Story',
-  'Living Curriculum','Work, and Be Changed','Closing'
+  'Arc of Expression','The Confluence','Sacred & Still',
+  'The Rooster Story','Living Curriculum','Work, and Be Changed','Closing'
 ];
 chapters.forEach((ch, i) => {
   if (i === 0) return;
@@ -1273,7 +1368,7 @@ grain.className = 'grain-overlay';
 document.body.appendChild(grain);
 
 // ── Ghost chapter numerals ──
-const numerals = ['I','II','III','IV','V','VI','VII','VIII'];
+const numerals = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
 chapters.forEach((ch, i) => {
   const g = document.createElement('div');
   g.className = 'ghost-num';

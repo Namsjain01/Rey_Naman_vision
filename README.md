@@ -1,6 +1,6 @@
-# Rey Mindu — A Mindful Village
+# Rey Village — A Mindful Living Village
 
-A single-page interactive site presenting the vision for Rey Mindu, a Lepcha village in East Sikkim being shaped into a mindful living and mental well-being destination grounded in living Kagyu Buddhist and Lepcha tradition.
+A single-page interactive site presenting the vision for Rey Village, a Lepcha village in East Sikkim being shaped into a mindful living and mental well-being destination grounded in living Kagyu Buddhist and Lepcha tradition.
 
 **Project:** Sarvahitey / Naman Jain  
 **Location:** Rey Village, East Sikkim, India  
