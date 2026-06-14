@@ -10,18 +10,20 @@ A single-page interactive site presenting the vision for Rey Village, a Lepcha v
 
 ## About the Site
 
-Eight chapters, navigated by click with scroll within each chapter. Built to be felt, not just read — the site lets people see the spirit of the place before encountering it in person.
+Ten chapters, navigated by click with scroll within each chapter. Built to be felt, not just read — the site lets people see the spirit of the place before encountering it in person.
 
 ### Chapters
 
-1. The Place Before the Vision
+1. The Place Before the Vision — incl. A Living Museum (QR audio walk)
 2. The Common Thread — *Thongdrol, Darshan, Pang*
 3. How Every Space Carries Two Roots
 4. The Arc of Expression — Unbecoming, Making, Gathering
-5. The Sacred & Still Layer
-6. Sculpture Point & the Rooster Story
-7. The Living Curriculum
-8. The Two Registers / Closing
+5. The Confluence — Sikkim art exchange
+6. The Sacred & Still Layer
+7. Sculpture Point & the Rooster Story
+8. The Living Curriculum — incl. the Hot Stone Bath
+9. Work, and Be Changed
+10. The Two Registers / Closing
 
 ---
 
